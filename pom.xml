@@ -26,73 +26,79 @@
     <headless>true</headless>
   </properties>
 
-  <build>
-    <plugins>
 
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>${maven-compiler-plugin.version}</version>
-        <configuration>
-          <source>${java.version}</source>
-          <target>${java.version}</target>
-        </configuration>
-      </plugin>
+  <profiles>
+    <profile>
+      <id>selenium</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>${maven-compiler-plugin.version}</version>
+            <configuration>
+              <source>${java.version}</source>
+              <target>${java.version}</target>
+            </configuration>
+          </plugin>
 
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-failsafe-plugin</artifactId>
-        <version>${maven-failsafe-plugin.version}</version>
-        <configuration>
-          <parallel>methods</parallel>
-          <threadCount>${threads}</threadCount>
-          <systemPropertyVariables>
-            <browser>${browser}</browser>
-            <headless>${headless}</headless>
-            <!-- Set properties passed in by the driver binary downloader -->
-            <webdriver.chrome.driver>${webdriver.chrome.driver}</webdriver.chrome.driver>
-            <webdriver.ie.driver>${webdriver.ie.driver}</webdriver.ie.driver>
-            <webdriver.opera.driver>${webdriver.opera.driver}</webdriver.opera.driver>
-            <webdriver.gecko.driver>${webdriver.gecko.driver}</webdriver.gecko.driver>
-            <webdriver.edge.driver>${webdriver.edge.driver}</webdriver.edge.driver>
-          </systemPropertyVariables>
-        </configuration>
-        <executions>
-          <execution>
-            <goals>
-              <goal>integration-test</goal>
-              <goal>verify</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-failsafe-plugin</artifactId>
+            <version>${maven-failsafe-plugin.version}</version>
+            <configuration>
+              <parallel>methods</parallel>
+              <threadCount>${threads}</threadCount>
+              <systemPropertyVariables>
+                <browser>${browser}</browser>
+                <headless>${headless}</headless>
+                <!-- Set properties passed in by the driver binary downloader -->
+                <webdriver.chrome.driver>${webdriver.chrome.driver}</webdriver.chrome.driver>
+                <webdriver.ie.driver>${webdriver.ie.driver}</webdriver.ie.driver>
+                <webdriver.opera.driver>${webdriver.opera.driver}</webdriver.opera.driver>
+                <webdriver.gecko.driver>${webdriver.gecko.driver}</webdriver.gecko.driver>
+                <webdriver.edge.driver>${webdriver.edge.driver}</webdriver.edge.driver>
+              </systemPropertyVariables>
+            </configuration>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>integration-test</goal>
+                  <goal>verify</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
 
-      <plugin>
-        <groupId>com.lazerycode.selenium</groupId>
-        <artifactId>driver-binary-downloader-maven-plugin</artifactId>
-        <version>${driver-binary-downloader-maven-plugin.version}</version>
-        <configuration>
-          <rootStandaloneServerDirectory>${project.basedir}/src/test/resources/selenium_standalone_binaries
-          </rootStandaloneServerDirectory>
-          <downloadedZipFileDirectory>${project.basedir}/src/test/resources/selenium_standalone_zips
-          </downloadedZipFileDirectory>
-          <customRepositoryMap>${project.basedir}/src/test/resources/RepositoryMap.xml</customRepositoryMap>
-          <overwriteFilesThatExist>${overwrite.binaries}</overwriteFilesThatExist>
-        </configuration>
-        <executions>
-          <execution>
-            <goals>
-              <goal>selenium</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-
-    </plugins>
-  </build>
+          <plugin>
+            <groupId>com.lazerycode.selenium</groupId>
+            <artifactId>driver-binary-downloader-maven-plugin</artifactId>
+            <version>${driver-binary-downloader-maven-plugin.version}</version>
+            <configuration>
+              <rootStandaloneServerDirectory>${project.basedir}/src/test/resources/selenium_standalone_binaries
+              </rootStandaloneServerDirectory>
+              <downloadedZipFileDirectory>${project.basedir}/src/test/resources/selenium_standalone_zips
+              </downloadedZipFileDirectory>
+              <customRepositoryMap>${project.basedir}/src/test/resources/RepositoryMap.xml</customRepositoryMap>
+              <overwriteFilesThatExist>${overwrite.binaries}</overwriteFilesThatExist>
+            </configuration>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>selenium</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 
   <dependencies>
-
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-java</artifactId>
@@ -113,7 +119,5 @@
       <version>${testng.version}</version>
       <scope>test</scope>
     </dependency>
-
   </dependencies>
-
 </project>
