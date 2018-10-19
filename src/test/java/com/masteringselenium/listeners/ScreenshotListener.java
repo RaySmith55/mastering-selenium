@@ -66,7 +66,7 @@ public class ScreenshotListener extends TestListenerAdapter {
             }
         } catch (Exception ex) {
             System.err.println("Unable to capture screenshot...");
-            ex.printStackTrace();
+            ex.getCause();
         }
     }
 }
