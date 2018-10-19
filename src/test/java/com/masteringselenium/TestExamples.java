@@ -28,11 +28,11 @@ public class TestExamples {
     Function<WebDriver, Boolean> didweFindElementFooLambda =
             driver -> driver.findElements(By.id("foo")).size() > 0;
 
-    Wait<WebDriver> wait = new FluentWait<>(driver)
-            .withTimeout(Duration.ofSeconds(15))
-            .pollingEvery(Duration.ofMillis(500))
-            .ignoreAll(Arrays.asList(NoSuchElementException.class, StaleElementReferenceException.class))
-            .withMessage("The message you will see if a TimeOutException is thrown");
+//    Wait<WebDriver> wait = new FluentWait<>(driver)
+//            .withTimeout(Duration.ofSeconds(15))
+//            .pollingEvery(Duration.ofMillis(500))
+//            .ignoreAll(Arrays.asList(NoSuchElementException.class, StaleElementReferenceException.class))
+//            .withMessage("The message you will see if a TimeOutException is thrown");
 
     public static Function<WebDriver, Boolean>
     listenerIsRegisteredOnElement(final String listenerType, final WebElement element) {
@@ -60,7 +60,7 @@ public class TestExamples {
                 } catch (InterruptedException ignored) {
                     // ignored
                 }
-                Point finalLocation = ((Locatable)element).getCoordinates()().inViewPort();
+                Point finalLocation = ((Locatable)element).getCoordinates().inViewPort();
                 return initialLocation.equals(finalLocation);
             }
         };
