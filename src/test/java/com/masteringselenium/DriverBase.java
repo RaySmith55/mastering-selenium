@@ -10,6 +10,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.masteringselenium.listeners.ScreenshotListener;
+import org.testng.annotations.Listeners;
+
+@Listeners(ScreenshotListener.class)
 public class DriverBase {
 
     private static List<DriverFactory> webDriverThreadPool = Collections.synchronizedList(new ArrayList<DriverFactory>());
